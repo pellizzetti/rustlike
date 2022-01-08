@@ -1160,6 +1160,7 @@ name = "rustlike"
 version = "0.1.0"
 dependencies = [
  "bracket-terminal",
+ "lazy_static",
 ]
 
 [[package]]
