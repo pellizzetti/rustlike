@@ -1,8 +1,10 @@
 use bracket_terminal::prelude::*;
 
 lazy_static! {
-  static ref FLOOR_TILE: Tile = Tile::new(true, Graphic::new(' ', (255, 255, 255), (50, 50, 150)),);
-  static ref WALL_TILE: Tile = Tile::new(false, Graphic::new('#', (255, 255, 255), (0, 0, 100)),);
+  pub static ref FLOOR_TILE: Tile =
+    Tile::new(true, Graphic::new(' ', (255, 255, 255), (50, 50, 150)),);
+  pub static ref WALL_TILE: Tile =
+    Tile::new(false, Graphic::new('#', (255, 255, 255), (0, 0, 100)),);
 }
 
 #[derive(Copy, Clone)]
@@ -46,7 +48,7 @@ pub struct Map {
 impl Map {
   pub fn new(width: u32, height: u32) -> Map {
     let map_size = (width * height) as usize;
-    let tiles = vec![*FLOOR_TILE; map_size].into_boxed_slice();
+    let tiles = vec![*WALL_TILE; map_size].into_boxed_slice();
 
     Map {
       width: width,

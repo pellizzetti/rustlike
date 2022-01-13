@@ -1,11 +1,13 @@
 #[macro_use]
 extern crate lazy_static;
 
+mod dungeon;
+mod map;
+
 use bracket_terminal::prelude::*;
 
+use dungeon::generate_dungeon;
 use map::Map;
-
-mod map;
 
 bracket_terminal::add_wasm_support!();
 
@@ -13,6 +15,9 @@ const CONSOLE_WIDTH: u32 = 80;
 const CONSOLE_HEIGHT: u32 = 50;
 const MAP_WIDTH: u32 = 80;
 const MAP_HEIGHT: u32 = 45;
+const MAP_MAX_ROOMS: u32 = 30;
+const ROOM_MAX_SIZE: u32 = 10;
+const ROOM_MIN_SIZE: u32 = 6;
 
 struct Player {
     x: u32,
@@ -25,13 +30,24 @@ struct State {
 }
 
 impl State {
-    pub fn new() -> State {
+    fn new() -> State {
+        let (map, first_room) = generate_dungeon(
+            MAP_WIDTH,
+            MAP_HEIGHT,
+            MAP_MAX_ROOMS,
+            ROOM_MAX_SIZE,
+            ROOM_MIN_SIZE,
+        );
+        let player = Player {
+            x: first_room.x as u32,
+            y: first_room.y as u32,
+        };
         State {
-            player: Player { x: 1, y: 1 },
-            map: Map::new(MAP_WIDTH, MAP_HEIGHT),
+            player: player,
+            map: map,
         }
     }
-    pub fn move_player(&mut self, x: i8, y: i8) {
+    fn move_player(&mut self, x: i8, y: i8) {
         let delta_x = (self.player.x as i8 + x) as u32;
         let delta_y = (self.player.y as i8 + y) as u32;
 

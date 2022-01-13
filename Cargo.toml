@@ -7,5 +7,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bracket-terminal = "0.8.1"
+bracket-terminal = "0.8.5"
 lazy_static = "1.4.0"
+bracket-random = "0.8.2"
+bracket-geometry = "0.8.3"
